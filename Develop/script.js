@@ -1,5 +1,5 @@
 // Assignment code here
-// arrays to store each character type
+// strings to store each character type
 let nums = "0123456789";
 let lowerLetters = "abcdefghijklmnopqrstuvwxyz";
 let upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -26,27 +26,47 @@ function passwordLength(){
 
 // calls the function to get the desired password length
 passwordLength();
+passwordChars();
 
-// if statements check if certain characters should be included in the password
-if(confirm('Should the password contain numbers?')){
-  possibleChars = possibleChars.concat(nums);
-}
+// function to ask the user what character types are desired for the password
+function passwordChars(){
+  // if statements check if certain characters should be included in the password
+  if(confirm('Should the password contain numbers?')){
+    possibleChars = possibleChars.concat(nums);
+  }
+  
+  if(confirm('Should the password contain lower case letters?')){
+    possibleChars = possibleChars.concat(lowerLetters);
+  }
+  
+  if(confirm('Should the password contain upper case letters?')){
+    possibleChars = possibleChars.concat(upperLetters);
+  }
+  
+  if(confirm('Should the password contain special characters?')){
+    possibleChars = possibleChars.concat(specialChars);
+  }
 
-if(confirm('Should the password contain lower case letters?')){
-  possibleChars = possibleChars.concat(lowerLetters);
-}
-
-if(confirm('Should the password contain upper case letters?')){
-  possibleChars = possibleChars.concat(upperLetters);
-}
-
-if(confirm('Should the password contain special characters?')){
-  possibleChars = possibleChars.concat(specialChars);
+  // if statement checks to make sure atleast one character type was selected
+  if(possibleChars != ""){
+    return possibleChars;
+  } else {
+    alert("You didn't select any of the possible character types. Please select at least one type.");
+    passwordChars();
+  }
 }
 
 // function to generate and return the password as a string
 function generatePassword(){
-  return possibleChars;
+  let password = '';
+
+  // loops through the same number of times as the length of the desired password
+  for (let i = 0; i < passLength; i++){
+    // concatenates the password one character at a time by randomly picking a character in the possibleChars string
+    password = password.concat(possibleChars.charAt(Math.floor(Math.random() * possibleChars.length)));
+  }
+
+  return password;
 }
 
 // Get references to the #generate element
